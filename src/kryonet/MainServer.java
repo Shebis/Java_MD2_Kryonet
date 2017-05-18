@@ -10,18 +10,15 @@ package kryonet;
  * @author Roberts Staskevics
  */
 public class MainServer {
-    ClientApp clientApp = new ClientApp();
+
     /**
      * @param args the command line arguments
      */
-    public static void main (String [] args)
-    {
-        ClientApp.main(args);
+    public static void main(String[] args) {
+        ClientApp clientApp = new ClientApp();
+//        clientApp.askHowManyOptions();
+//        clientApp.askWhichVariantsToFill();
+        clientApp.userFillVariant();
     }
-    
 
-    
-    
 }
-    
-

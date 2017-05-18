@@ -5,6 +5,12 @@
  */
 package kryonet;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,89 +18,93 @@ import javax.swing.JOptionPane;
  * @author Roberts Staskevics
  */
 public class ClientApp {
-    Variation variation = new Variation();
+
+    private static Variation variation;
     private static int userInputOptions;
     private static int userInputOptionsVariants;
-    
-    public static void main(String [] args)
-    {
-        
-        askHowManyOptions();
-        askWhichVariantsToFill();
-        
+
+    public ClientApp() {
+        variation = new Variation();
+        List<Integer> selectedNumbers = variation.getList();
     }
-    
-    public static void askHowManyOptions()
-    {
+
+    public static void main(String[] args) {
+    }
+
+    public void askHowManyOptions() {
         String errorMessage = "";
         do {
             // Show input dialog with current error message, if any
             String stringInput = JOptionPane.showInputDialog(errorMessage + "Enter number (1-5):");
-            try 
-            {
+            try {
                 userInputOptions = Integer.parseInt(stringInput);
                 System.out.println("userInputOptions: " + userInputOptions);
-                if (userInputOptions <= 0 || userInputOptions >= 6) 
-                {
+                if (userInputOptions <= 0 || userInputOptions >= 6) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
-                } 
-                else 
-                {
-                    JOptionPane.showMessageDialog(null, "Thank you! You inserted " + 
-                                userInputOptions + " options!",
-                                "User Input", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thank you! You inserted "
+                            + userInputOptions + " options!",
+                            "User Input", JOptionPane.INFORMATION_MESSAGE);
                     errorMessage = ""; // no more error
                 }
-            } 
-            catch (NumberFormatException ex) 
-            {
+            } catch (NumberFormatException ex) {
                 // The typed text was not an integer
                 errorMessage = "The text you typed is not a number.\n";
             }
         } while (!errorMessage.isEmpty());
     }
-    
-    public static void askWhichVariantsToFill()
-    {
+
+    public void askWhichVariantsToFill() {
         String errorMessage = "";
         do {
             // Show input dialog with current error message, if any
-            String stringInput = JOptionPane.showInputDialog(errorMessage + 
-                    "How many variants you want to fill by hand? \n"
-                        + "You can choose: " + userInputOptions + " or less.");
-            try 
-            {
+            String stringInput = JOptionPane.showInputDialog(errorMessage
+                    + "How many variants you want to fill by hand? \n"
+                    + "You can choose: " + userInputOptions + " or less.");
+            try {
                 userInputOptionsVariants = Integer.parseInt(stringInput);
                 //System.out.println("userInputOptions: " + userInputOptions);
-                if (userInputOptionsVariants <= 0 || userInputOptionsVariants >= 6) 
-                {
+                if (userInputOptionsVariants <= 0 || userInputOptionsVariants == userInputOptions || userInputOptionsVariants > userInputOptions) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
-                } 
-                else 
-                {
-                    JOptionPane.showMessageDialog(null, "Thank you! You inserted " + 
-                                userInputOptionsVariants + " options! "
-                                + "Other variants will fill in automaticaly!",
-                                "User Input", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thank you! You inserted "
+                            + userInputOptionsVariants + " options! "
+                            + "Other variants will fill in automaticaly!",
+                            "User Input", JOptionPane.INFORMATION_MESSAGE);
                     errorMessage = ""; // no more error
                 }
-            } 
-            catch (NumberFormatException ex) 
-            {
+            } catch (NumberFormatException ex) {
                 // The typed text was not an integer
                 errorMessage = "The text you typed is not a number.\n";
             }
-        } while (!errorMessage.isEmpty());       
+        } while (!errorMessage.isEmpty());
     }
-    
-    public static void userFillVariant()
-    {
-        
+
+    public void userFillVariant() {
+        int userInputNumber;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Enter number in range (1-35): ");
+            try {
+                do {
+                    userInputNumber = Integer.parseInt(br.readLine());
+                    variation.insertIntoArrayList(userInputNumber);
+                } while (userInputNumber > 0 || userInputNumber < 36);
+
+            } catch (IOException ex) {
+                System.err.println("Invalid Format!");
+            }
+        }
+        int index = 1;
+        for (int j = 0; j < variation.getList().size(); j++) {
+            System.out.println("Nr. " + index + ": " + variation.getList().get(j));
+            index++;
+        }
+
     }
-    
-    public static void randomFillVariant()
-    {
-        
+
+    public void randomFillVariant() {
+
     }
 
 }
