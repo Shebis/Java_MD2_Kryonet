@@ -15,6 +15,10 @@ import java.util.Scanner;
  * @author Roberts Staskevics
  */
 public class KryoClient {
+    private static int    timeout = 5000;
+    private static int    portSocket = 8070;
+    private static String ipAdress = "localhost";
+    
     public static void main(String[] args) throws IOException{
         
         //1. create Client
@@ -24,12 +28,13 @@ public class KryoClient {
         //3. add listener to client
         client.addListener(listener);
         //4. register classes for sending
+        
         Kryo kryo = client.getKryo();
-        kryo.register(String.class);
+        kryo.register(Packet.Packet01Message.class);
         //5. start client
         client.start();
         //6. connect to server
-        client.connect(5000, "localhost", 8070);
+        client.connect(timeout, ipAdress, portSocket);
         //7. input from console
         Scanner scanner = new Scanner(System.in);
         while(true)

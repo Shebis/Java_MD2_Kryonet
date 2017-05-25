@@ -6,6 +6,7 @@
 package kryonet;
 
 import com.esotericsoftware.kryonet.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,22 +14,39 @@ import com.esotericsoftware.kryonet.*;
  */
 public class KryoServerListener extends Listener {
     Server server;
+    ClientApp clientapp;
+    private ArrayList<Integer> winningNumbers;
+    int randomNumb;
+
     
     public KryoServerListener(Server server)
     {
         super();
         this.server = server;
+        
+        winningNumbers = new ArrayList<>();
+        
+        randomNumb = 0;
+        for(int i = 0; i < 5; i++){
+            randomNumb = clientapp.randInt(1, 35);
+            winningNumbers.add(randomNumb);
+        }
     }
     
     @Override
     public void connected(Connection con)
     {
-        System.out.println("Client Nr. " + con.getID() + " is connected!");
+        System.out.println("User has connected!");
+        System.out.println("Winning Numbers:");
+        for(int i = 0; i < winningNumbers.size(); i++){
+            System.out.println(" [ " + winningNumbers.get(i) + ", ");
+        }
+        System.out.println(" ]");
     }
     
     public void disconected(Connection con)
     {
-        System.out.println("Client Nr. " + con.getID() + " is disconnected!");
+        System.out.println("User has disconnected!");
     }
     
     @Override
@@ -36,7 +54,7 @@ public class KryoServerListener extends Listener {
     {
         if(obj instanceof String)
         {
-            System.out.println("Client: " + con.getID() + " >>>>> " + (String)obj);
+            System.out.println("User: " + con.getID() + " >>>>> " + (String)obj);
             sendMSGToAll((String)obj);
         }
     }

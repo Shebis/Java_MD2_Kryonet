@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package kryonet;
 
 import java.util.Random;
@@ -33,6 +32,7 @@ public class ClientApp {
             String stringInput = JOptionPane.showInputDialog(null, errorMessage + "Enter number (1-5):", "Input number...");
             try {
                 userInputOptions = Integer.parseInt(stringInput);
+                variation.setVariationNr(userInputOptions);
                 System.out.println("userInputOptions: " + userInputOptions);
                 if (userInputOptions <= 0 || userInputOptions >= 6) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
@@ -59,7 +59,7 @@ public class ClientApp {
                     "Input number of variants...");
             try {
                 userInputOptionsVariants = Integer.parseInt(stringInput);
-                //System.out.println("userInputOptions: " + userInputOptions);
+                System.out.println("userInputOptionsVariants: " + userInputOptionsVariants);
                 if (userInputOptionsVariants < 0 || userInputOptionsVariants > userInputOptions) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
                 } else {
@@ -78,38 +78,41 @@ public class ClientApp {
 
     public void userFillVariant() {
         int userInputNumber;
-        int index = 1;
         String errorMessage = "";
-        for (int i = 0; i < 5; i++) {
-            do {
-                // Show input dialog with current error message, if any
-                String stringInput = JOptionPane.showInputDialog(null, errorMessage
-                        + "Enter number Nr. " + index + " number in range (1-35):",
-                        "Enter number...");
-                try {
-                    userInputNumber = Integer.parseInt(stringInput);
-                    variation.insertIntoArrayList(userInputNumber);
-                    //System.out.println("userInputOptions: " + userInputOptions);
-                    if (userInputNumber <= 0 || userInputNumber > 35) {
-                        errorMessage = "That number is not within the \n" + "allowed range!\n";
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Thank you! You inserted number Nr. "
-                                + index + " !",
-                                "User Input", JOptionPane.INFORMATION_MESSAGE);
-                        errorMessage = ""; // no more error
-                        index++;
+        if (userInputOptionsVariants == 1) {
+            int index = 1;
+            variation.setVariationNr(index);
+            for (int i = 0; i < 5; i++) {
+                do {
+                    // Show input dialog with current error message, if any
+                    String stringInput = JOptionPane.showInputDialog(null, errorMessage
+                            + "Enter number Nr. " + index + " number in range (1-35):",
+                            "Enter number...");
+                    try {
+                        userInputNumber = Integer.parseInt(stringInput);
+                        //System.out.println("userInputOptions: " + userInputOptions);
+                        if (userInputNumber <= 0 || userInputNumber > 35) {
+                            errorMessage = "That number is not within the \n" + "allowed range!\n";
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Thank you! You inserted number Nr. "
+                                    + index + " !",
+                                    "User Input", JOptionPane.INFORMATION_MESSAGE);
+                            errorMessage = ""; // no more error
+                            index++;
+                            variation.insertIntoArrayList(userInputNumber);
+                        }
+                    } catch (NumberFormatException ex) {
+                        // The typed text was not an integer
+                        errorMessage = "The text you typed is not a number.\n";
                     }
-                } catch (NumberFormatException ex) {
-                    // The typed text was not an integer
-                    errorMessage = "The text you typed is not a number.\n";
-                }
-            } while (!errorMessage.isEmpty());
-        }
-        // array output
-        int indexForArray = 1;
-        for (int j = 0; j < variation.getList().size(); j++) {
-            System.out.println("Nr. " + indexForArray + ": " + variation.getList().get(j));
-            indexForArray++;
+                } while (!errorMessage.isEmpty());
+            }
+            // array output
+            int indexForArray = 1;
+            for (int j = 0; j < variation.getList().size(); j++) {
+                System.out.println("Nr. " + indexForArray + ": " + variation.getList().get(j));
+                indexForArray++;
+            }
         }
     }
 

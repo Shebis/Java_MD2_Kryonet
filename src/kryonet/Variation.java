@@ -48,6 +48,22 @@ public class Variation {
         return selectedNumbers;
     }
 
+    public void setVariationNr(int variationNr) {
+        this.variationNr = variationNr;
+    }
+
+    public void setCorrectNumbers(int correctNumbers) {
+        this.correctNumbers = correctNumbers;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public void insertIntoArrayList(int element) {
         selectedNumbers.add(element);
     }

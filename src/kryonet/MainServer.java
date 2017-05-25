@@ -16,8 +16,8 @@ public class MainServer {
      */
     public static void main(String[] args) {
         ClientApp clientApp = new ClientApp();
-//        clientApp.askHowManyOptions();
-//        clientApp.askWhichVariantsToFill();
+        clientApp.askHowManyOptions();
+        clientApp.askWhichVariantsToFill();
         clientApp.userFillVariant();
     }
 
