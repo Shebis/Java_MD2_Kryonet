@@ -6,6 +6,7 @@
 package kryonet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,15 +16,34 @@ import java.util.List;
 public class Variation {
 
     private int variationNr;
-    private int correctNumbers = 0;
+    private int correctNumbers;
     private ArrayList<Integer> selectedNumbers;
     private String clientEmail;
-//    private Datetime dateTime;
+    private Date date;
 
     public Variation() {
         selectedNumbers = new ArrayList<>();
+        variationNr = 0;
+        correctNumbers = 0;
+        clientEmail = "";
     }
 
+    public int getVariationNr() {
+        return variationNr;
+    }
+
+    public int getCorrectNumbers() {
+        return correctNumbers;
+    }
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    
     public List<Integer> getList() {
         return selectedNumbers;
     }
