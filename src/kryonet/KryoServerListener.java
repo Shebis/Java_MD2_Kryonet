@@ -40,10 +40,10 @@ public class KryoServerListener extends Listener {
             sendMSGToAll((String)obj);
         }
     }
-    public void sendMSGToAll(String msg)
+    public void sendMSGToAll(String message)
     {
         Connection[] allClients = server.getConnections();
         for(Connection con: allClients)
-            con.sendTCP(msg);
+            con.sendTCP(message);
     }
 }

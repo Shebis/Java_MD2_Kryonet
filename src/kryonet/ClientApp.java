@@ -26,6 +26,8 @@ public class ClientApp {
     public ClientApp() {
         variation = new Variation();
         List<Integer> selectedNumbers = variation.getList();
+        userInputOptions = 0;
+        userInputOptionsVariants = 0;
     }
 
     public static void main(String[] args) {
@@ -64,7 +66,7 @@ public class ClientApp {
             try {
                 userInputOptionsVariants = Integer.parseInt(stringInput);
                 //System.out.println("userInputOptions: " + userInputOptions);
-                if (userInputOptionsVariants <= 0 || userInputOptionsVariants == userInputOptions || userInputOptionsVariants > userInputOptions) {
+                if (userInputOptionsVariants < 0 || userInputOptionsVariants > userInputOptions) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
                 } else {
                     JOptionPane.showMessageDialog(null, "Thank you! You inserted "
