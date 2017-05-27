@@ -28,7 +28,6 @@ public class KryoClient {
         //3. add listener to client
         client.addListener(listener);
         //4. register classes for sending
-        
         Kryo kryo = client.getKryo();
         kryo.register(Packet.Packet01Message.class);
         //5. start client

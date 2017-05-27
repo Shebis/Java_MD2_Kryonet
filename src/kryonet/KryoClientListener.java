@@ -13,26 +13,51 @@ import com.esotericsoftware.kryonet.*;
  * @author Roberts Staskevics
  */
 public class KryoClientListener extends Listener{
-   public KryoClientListener()
-    {
-        
+    private Client client;
+    
+//   public KryoClientListener()
+//    {
+//        
+//    }
+    
+    /**
+     * 
+     * @param client 
+     */
+    public void init(Client client){
+        this.client = client;
     }
     
+    /**
+     * 
+     * @param con 
+     */
    @Override
     public void connected(Connection con)
     {
         System.out.println("You Are Connected!");
     }
     
+    /**
+     * 
+     * @param con 
+     */
     public void disconected(Connection con)
     {
         System.out.println("You Are Disconnected!");
     }
     
+    /**
+     * 
+     * @param con
+     * @param obj 
+     */
     @Override
     public void received(Connection con, Object obj)
     {
-        if(obj instanceof String)
-            System.out.println("Client: " + con.getID() + " <<<< " + (String)obj);
+        if (obj instanceof Packet.Packet01Message) {
+            Packet.Packet01Message pm = (Packet.Packet01Message) obj;
+            System.out.println("Server <<<< " + pm.message);
+        }
     } 
 }

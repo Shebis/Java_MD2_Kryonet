@@ -14,6 +14,8 @@ import java.io.IOException;
  * @author Roberts Staskevics
  */
 public class KryoServer {
+    private static int    portSocket = 8070;
+    
     public static void main(String[] args) throws IOException{
         // TODO code application logic here
          // TODO code application logic here
@@ -28,7 +30,7 @@ public class KryoServer {
         Kryo kryo = server.getKryo();
         kryo.register(String.class);
         //5. bind server
-        server.bind(8070);
+        server.bind(portSocket);
         //6. start server
         server.start();
         System.out.println("Server is starting! ");

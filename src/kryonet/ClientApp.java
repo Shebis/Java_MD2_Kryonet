@@ -18,6 +18,9 @@ public class ClientApp {
     private static int userInputOptions;
     private static int userInputOptionsVariants;
 
+    /**
+     * 
+     */
     public ClientApp() {
         variation = new Variation();
         //List<Integer> selectedNumbers = variation.getList();
@@ -25,6 +28,9 @@ public class ClientApp {
         userInputOptionsVariants = 0;
     }
 
+    /**
+     * 
+     */
     public void askHowManyOptions() {
         String errorMessage = "";
         do {
@@ -49,6 +55,9 @@ public class ClientApp {
         } while (!errorMessage.isEmpty());
     }
 
+    /**
+     * 
+     */
     public void askWhichVariantsToFill() {
         String errorMessage = "";
         do {
@@ -76,6 +85,9 @@ public class ClientApp {
         } while (!errorMessage.isEmpty());
     }
 
+    /**
+     * 
+     */
     public void userFillVariant() {
         int userInputNumber;
         String errorMessage = "";
@@ -116,10 +128,19 @@ public class ClientApp {
         }
     }
 
+    /**
+     * 
+     */
     public void randomFillVariant() {
         randInt(1, 35);
     }
 
+    /**
+     * 
+     * @param min
+     * @param max
+     * @return 
+     */
     public int randInt(int min, int max) {
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
