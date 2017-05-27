@@ -35,23 +35,28 @@ public class KryoServerListener extends Listener {
 
     @Override
     public void connected(Connection con) {
-        System.out.println("User has connected!");
+        System.out.println("User has connected!\n");
+
         System.out.println("Winning Numbers:");
         for (int i = 0; i < winningNumbers.size(); i++) {
-            System.out.println(" [ " + winningNumbers.get(i) + ", ");
+            if(i == 0)
+                System.out.print("[ " + winningNumbers.get(i));
+            else if (i == winningNumbers.size()-1)
+                System.out.print(" , " + winningNumbers.get(i) + " ]\n");
+            else
+                System.out.print(" , " + winningNumbers.get(i));
         }
-        System.out.println(" ]");
     }
 
     public void disconected(Connection con) {
-        System.out.println("User has disconnected!");
+        System.out.println("User has disconnected!\n");
     }
 
     @Override
     public void received(Connection con, Object obj) {
         if (obj instanceof Packet.Packet01Message) {
             Packet.Packet01Message pm = (Packet.Packet01Message) obj;
-            System.out.println("Client <<<< " + pm.message);
+            System.out.println("Client >>>> " + pm.message);
         }
     }
 

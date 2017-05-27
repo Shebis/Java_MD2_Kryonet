@@ -15,11 +15,6 @@ import com.esotericsoftware.kryonet.*;
 public class KryoClientListener extends Listener{
     private Client client;
     
-//   public KryoClientListener()
-//    {
-//        
-//    }
-    
     /**
      * 
      * @param client 
@@ -35,7 +30,12 @@ public class KryoClientListener extends Listener{
    @Override
     public void connected(Connection con)
     {
-        System.out.println("You Are Connected!");
+        System.out.println("You Are Connected!\n");
+        
+        // Prepare and Send a Message to Server
+        Packet.Packet01Message firstMessage = new Packet.Packet01Message();
+        firstMessage.message = "Hello, I am Your message!";
+        client.sendTCP(firstMessage);
     }
     
     /**
@@ -57,7 +57,7 @@ public class KryoClientListener extends Listener{
     {
         if (obj instanceof Packet.Packet01Message) {
             Packet.Packet01Message pm = (Packet.Packet01Message) obj;
-            System.out.println("Server <<<< " + pm.message);
+            System.out.println("Server >>>> " + pm.message);
         }
     } 
 }

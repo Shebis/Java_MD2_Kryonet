@@ -5,17 +5,25 @@
  */
 package kryonet;
 
+import java.io.IOException;
+
 /**
  *
  * @author Roberts Staskevics
  */
 public class MainServer {
-
+    private static ClientApp clientApp = new ClientApp();
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        ClientApp clientApp = new ClientApp();
+    public static void main(String[] args) throws IOException {
+        //start server
+        KryoServer.main(args);
+        
+        //start client
+        KryoClient.main(args);
+        
+        //user interface
         clientApp.askHowManyOptions();
         clientApp.askWhichVariantsToFill();
         clientApp.userFillVariant();

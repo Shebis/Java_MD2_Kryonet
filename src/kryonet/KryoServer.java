@@ -14,26 +14,41 @@ import java.io.IOException;
  * @author Roberts Staskevics
  */
 public class KryoServer {
-    private static int    portSocket = 8070;
+    private static int portSocket = 8070;
     
-    public static void main(String[] args) throws IOException{
-        // TODO code application logic here
-         // TODO code application logic here
-        
+    Server server;
+    KryoServerListener listener;
+    
+    public KryoServer(){
         //1. create Server
-        Server server = new Server();
+        server = new Server();
         //2. create Listener
-        KryoServerListener listener = new KryoServerListener(server);
+        listener = new KryoServerListener(server);
         //3. add Listener to server
         server.addListener(listener);
+        //5. bind server
+        try {
+            server.bind(portSocket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        //4. register class type
+        registerPackets();
+        
+        //6. start server
+        server.start();    
+    }
+    
+    public static void main(String[] args) throws IOException{  
+        System.out.println("Server is starting! ");
+        System.out.println("Server is running! \n");
+        new KryoServer();
+    }
+    
+    private void registerPackets(){
         //4. register class type
         Kryo kryo = server.getKryo();
-        kryo.register(String.class);
-        //5. bind server
-        server.bind(portSocket);
-        //6. start server
-        server.start();
-        System.out.println("Server is starting! ");
-        
+        kryo.register(Packet.Packet01Message.class);
     }
 }
