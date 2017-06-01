@@ -14,6 +14,8 @@ import com.esotericsoftware.kryonet.*;
  */
 public class KryoClientListener extends Listener{
     private Client client;
+    //private KryoClient kryoClient = new KryoClient();
+    private ClientApp clientApp = new ClientApp();
     private Variation variation = new Variation();
     
     /**
@@ -33,13 +35,21 @@ public class KryoClientListener extends Listener{
     {
         System.out.println("You Are Connected!\n");
         
-        // Prepare and Send a Message to Server
-        Packet.Packet01Message firstMessage = new Packet.Packet01Message();
-        ClientApp clientapp = new ClientApp();
+//        // Prepare and Send a Message to Server
+//        Packet.Packet01Message firstMessage = new Packet.Packet01Message();
+//        ClientApp clientapp = new ClientApp();
+//        firstMessage.message = variation.getList().toString();
+////        firstMessage.message = "Hello!";
+//        client.sendTCP(firstMessage);
+
+        clientApp.askHowManyOptions();
+        clientApp.askWhichVariantsToFill();
+        for(int i = 0; i < clientApp.getUserInputOptionsVariants(); i++){
+            clientApp.userFillVariant();
+            variation.setVariationNr(clientApp.getUserInputOptionsVariants()+1);
+        }
+        clientApp.randomFillVariant();
         
-        firstMessage.message = variation.getList().toString();
-//        firstMessage.message = "Hello!";
-        client.sendTCP(firstMessage);
     }
     
     /**

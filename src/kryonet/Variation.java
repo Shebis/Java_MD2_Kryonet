@@ -23,7 +23,7 @@ public class Variation {
 
     public Variation() {
         selectedNumbers = new ArrayList<>();
-        variationNr = 0;
+        variationNr = 1;
         correctNumbers = 0;
         clientEmail = "";
     }
