@@ -46,6 +46,7 @@ public class KryoServerListener extends Listener {
             else
                 System.out.print(" , " + winningNumbers.get(i));
         }
+        System.out.println("\n");
     }
 
     public void disconected(Connection con) {

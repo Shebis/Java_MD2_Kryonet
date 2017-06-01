@@ -14,6 +14,7 @@ import com.esotericsoftware.kryonet.*;
  */
 public class KryoClientListener extends Listener{
     private Client client;
+    private Variation variation = new Variation();
     
     /**
      * 
@@ -34,7 +35,10 @@ public class KryoClientListener extends Listener{
         
         // Prepare and Send a Message to Server
         Packet.Packet01Message firstMessage = new Packet.Packet01Message();
-        firstMessage.message = "Hello, I am Your message!";
+        ClientApp clientapp = new ClientApp();
+        
+        firstMessage.message = variation.getList().toString();
+//        firstMessage.message = "Hello!";
         client.sendTCP(firstMessage);
     }
     
@@ -60,4 +64,9 @@ public class KryoClientListener extends Listener{
             System.out.println("Server >>>> " + pm.message);
         }
     } 
+    
+//    @Override
+//    public String toString(){
+//        return null;
+//    }
 }

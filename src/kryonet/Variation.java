@@ -28,42 +28,83 @@ public class Variation {
         clientEmail = "";
     }
 
+    /**
+     * 
+     * @return variationNr
+     */
     public int getVariationNr() {
         return variationNr;
     }
 
+    /**
+     * 
+     * @return correctNumbers
+     */
     public int getCorrectNumbers() {
         return correctNumbers;
     }
 
+    /**
+     * 
+     * @return clientEmail
+     */
     public String getClientEmail() {
         return clientEmail;
     }
 
+    /**
+     * 
+     * @return date
+     */
     public Date getDate() {
         return date;
     }
     
+    /**
+     * 
+     * @return selectedNumbers
+     */
     public List<Integer> getList() {
         return selectedNumbers;
     }
 
+    /**
+     * 
+     * @param variationNr 
+     */
     public void setVariationNr(int variationNr) {
         this.variationNr = variationNr;
     }
 
+    /**
+     * 
+     * @param correctNumbers 
+     */
     public void setCorrectNumbers(int correctNumbers) {
         this.correctNumbers = correctNumbers;
     }
 
+    /**
+     * 
+     * @param clientEmail 
+     */
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
 
+    /**
+     * 
+     * @param date 
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * 
+     * @param element 
+     * add element (Integer) to array
+     */
     public void insertIntoArrayList(int element) {
         selectedNumbers.add(element);
     }

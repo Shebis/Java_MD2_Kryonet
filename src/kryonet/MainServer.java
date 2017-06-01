@@ -17,16 +17,18 @@ public class MainServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        //start server
-        KryoServer.main(args);
         
-        //start client
-        KryoClient.main(args);
         
         //user interface
         clientApp.askHowManyOptions();
         clientApp.askWhichVariantsToFill();
         clientApp.userFillVariant();
+        
+        //start server
+        KryoServer.main(args);
+        
+        //start client
+        KryoClient.main(args);
     }
 
 }

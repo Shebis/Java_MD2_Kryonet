@@ -50,5 +50,6 @@ public class KryoServer {
         //4. register class type
         Kryo kryo = server.getKryo();
         kryo.register(Packet.Packet01Message.class);
+        kryo.register(ClientApp.class);
     }
 }

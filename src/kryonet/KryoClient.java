@@ -51,5 +51,6 @@ public class KryoClient {
         //4. register classes for sending
         Kryo kryo = client.getKryo();
         kryo.register(Packet.Packet01Message.class);
+        kryo.register(ClientApp.class);
     }
 }

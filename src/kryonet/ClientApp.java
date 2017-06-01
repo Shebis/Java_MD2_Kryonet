@@ -39,7 +39,7 @@ public class ClientApp {
             try {
                 userInputOptions = Integer.parseInt(stringInput);
                 variation.setVariationNr(userInputOptions);
-                System.out.println("userInputOptions: " + userInputOptions);
+                //System.out.println("userInputOptions: " + userInputOptions);
                 if (userInputOptions <= 0 || userInputOptions >= 6) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
                 } else {
@@ -68,7 +68,7 @@ public class ClientApp {
                     "Input number of variants...");
             try {
                 userInputOptionsVariants = Integer.parseInt(stringInput);
-                System.out.println("userInputOptionsVariants: " + userInputOptionsVariants);
+                //System.out.println("userInputOptionsVariants: " + userInputOptionsVariants);
                 if (userInputOptionsVariants < 0 || userInputOptionsVariants > userInputOptions) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
                 } else {
@@ -119,12 +119,17 @@ public class ClientApp {
                     }
                 } while (!errorMessage.isEmpty());
             }
-            // array output
-            int indexForArray = 1;
-            for (int j = 0; j < variation.getList().size(); j++) {
-                System.out.println("Nr. " + indexForArray + ": " + variation.getList().get(j));
-                indexForArray++;
+            // array output           
+            System.out.println("User Variation Nr." + variation.getVariationNr() + " Numbers:");
+            for (int i = 0; i < variation.getList().size(); i++) {
+                if(i == 0)
+                    System.out.print("[ " + variation.getList().get(i));
+                else if (i == variation.getList().size()-1)
+                    System.out.print(" , " + variation.getList().get(i) + " ]\n");
+                else
+                    System.out.print(" , " + variation.getList().get(i));
             }
+            System.out.println("\n");
         }
     }
 
