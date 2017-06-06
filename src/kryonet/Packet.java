@@ -14,6 +14,6 @@ public class Packet {
         String message;
     }
     public static class Packet02Variation{
-        Variation variation;
+        Variation variation;   
     }
 }

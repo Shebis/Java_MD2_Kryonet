@@ -8,19 +8,22 @@ package kryonet;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import java.io.IOException;
+import kryonet.Packet.Packet01Message;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
  * @author Roberts Staskevics
  */
-public class KryoClient {
+public final class KryoClient {
 
-    private static int timeout = 5000;
-    private static int portSocket = 8070;
-    private static String ipAdress = "localhost";
+    private static final int timeout = 5000;
+    private static final int portSocket = 8070;
+    private static final String ipAdress = "localhost";
 
     public Client client;
     private KryoClientListener listener;
+
 
     public KryoClient() {
         //1. create Client
@@ -39,7 +42,8 @@ public class KryoClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        sendVariation(variation);
+        
+        
     }
 
     public static void main(String[] args) throws IOException {
@@ -51,11 +55,13 @@ public class KryoClient {
     public void registerPacket() {
         //4. register classes for sending
         Kryo kryo = client.getKryo();
-        kryo.register(Packet.Packet01Message.class);
+        kryo.register(Packet01Message.class);
+        kryo.register(Packet02Variation.class);
+        kryo.register(Variation.class);
         kryo.register(ClientApp.class);
-    }
-
-    public void sendVariation(Packet.Packet02Variation variation) {
-        client.sendTCP(variation);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(KryoClientListener.class);
+        kryo.register(KryoServer.class);
+        kryo.register(KryoServerListener.class);
     }
 }

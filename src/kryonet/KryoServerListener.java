@@ -7,6 +7,8 @@ package kryonet;
 
 import com.esotericsoftware.kryonet.*;
 import java.util.ArrayList;
+import kryonet.Packet.Packet01Message;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
@@ -18,6 +20,7 @@ public class KryoServerListener extends Listener {
     ClientApp clientapp;
     private ArrayList<Integer> winningNumbers;
     private int randomNumb;
+    private Variation var = new Variation();
 
     public KryoServerListener(Server server) {
         super();
@@ -51,13 +54,21 @@ public class KryoServerListener extends Listener {
 
     public void disconected(Connection con) {
         System.out.println("User has disconnected!\n");
+        System.exit(0);
     }
 
     @Override
     public void received(Connection con, Object obj) {
-        if (obj instanceof Packet.Packet01Message) {
-            Packet.Packet01Message pm = (Packet.Packet01Message) obj;
+        System.out.println("received " + obj);
+        if (obj instanceof Packet01Message) {
+            Packet01Message pm = (Packet01Message) obj;
             System.out.println("Client >>>> " + pm.message);
+        }
+        
+        if (obj instanceof Packet02Variation){
+            Packet02Variation vm = (Packet02Variation) obj;
+            System.out.println("Client <===> " + vm.variation);
+        
         }
     }
 
@@ -66,5 +77,12 @@ public class KryoServerListener extends Listener {
         for (Connection con : allClients) {
             con.sendTCP(message);
         }
+    }
+    
+    @Override
+    public String toString(){
+        return "Nr. " + var.getVariationNr() 
+                + "User Numbers: " + var.getList()
+                + "User Email: " + var.getClientEmail();
     }
 }

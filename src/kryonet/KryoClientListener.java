@@ -6,6 +6,8 @@
 package kryonet;
 
 import com.esotericsoftware.kryonet.*;
+import kryonet.Packet.Packet01Message;
+import kryonet.Packet.Packet02Variation;
 
 
 /**
@@ -15,8 +17,9 @@ import com.esotericsoftware.kryonet.*;
 public class KryoClientListener extends Listener{
     private Client client;
     //private KryoClient kryoClient = new KryoClient();
-    private ClientApp clientApp = new ClientApp();
-    private Variation variation = new Variation();
+    private final ClientApp clientApp = new ClientApp();
+    private final Variation variation = new Variation();
+    private final Packet02Variation packet = new Packet02Variation();
     
     /**
      * 
@@ -48,8 +51,13 @@ public class KryoClientListener extends Listener{
             clientApp.userFillVariant();
             variation.setVariationNr(clientApp.getUserInputOptionsVariants()+1);
         }
+        for(int j = 0; j < variation.getList().size(); j++){
+                variation.getList().get(j);
+            }
         clientApp.randomFillVariant();
         
+        packet.variation = variation;
+        sendVariation(packet);
     }
     
     /**
@@ -59,6 +67,7 @@ public class KryoClientListener extends Listener{
     public void disconected(Connection con)
     {
         System.out.println("You Are Disconnected!");
+        System.exit(0);
     }
     
     /**
@@ -69,8 +78,8 @@ public class KryoClientListener extends Listener{
     @Override
     public void received(Connection con, Object obj)
     {
-        if (obj instanceof Packet.Packet01Message) {
-            Packet.Packet01Message pm = (Packet.Packet01Message) obj;
+        if (obj instanceof Packet01Message) {
+            Packet01Message pm = (Packet01Message) obj;
             System.out.println("Server >>>> " + pm.message);
         }
     } 
@@ -79,4 +88,8 @@ public class KryoClientListener extends Listener{
 //    public String toString(){
 //        return null;
 //    }
+    
+    public void sendVariation(Packet02Variation variation) {
+        client.sendTCP(variation);
+    }
 }

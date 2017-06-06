@@ -8,13 +8,15 @@ package kryonet;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
+import kryonet.Packet.Packet01Message;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
  * @author Roberts Staskevics
  */
 public class KryoServer {
-    private static int portSocket = 8070;
+    private static final int portSocket = 8070;
     
     Server server;
     KryoServerListener listener;
@@ -49,7 +51,14 @@ public class KryoServer {
     private void registerPackets(){
         //4. register class type
         Kryo kryo = server.getKryo();
-        kryo.register(Packet.Packet01Message.class);
+        kryo.register(Packet01Message.class);
+        kryo.register(Packet02Variation.class);
+        kryo.register(Variation.class);
         kryo.register(ClientApp.class);
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(KryoClient.class);
+        kryo.register(KryoClientListener.class);
+        kryo.register(KryoServerListener.class);
+        
     }
 }
