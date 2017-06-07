@@ -6,6 +6,7 @@
 package kryonet;
 
 import java.io.IOException;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
@@ -13,6 +14,8 @@ import java.io.IOException;
  */
 public class MainServer {
     private static ClientApp clientApp = new ClientApp();
+    private static Packet02Variation packet = new Packet02Variation();
+    private static Variation variation = new Variation();
     /**
      * @param args the command line arguments
      */
@@ -20,13 +23,21 @@ public class MainServer {
         //user interface
         clientApp.askHowManyOptions();
         clientApp.askWhichVariantsToFill();
-        clientApp.userFillVariant();
+        for(int i = 0; i < clientApp.getUserInputOptionsVariants(); i++){
+            clientApp.userFillVariant();
+            //variation.setVariationNr(clientApp.getUserInputOptionsVariants()+1);
+        }
+        for(int j = 0; j < variation.getList().size(); j++){
+            System.out.println("suudi " + variation.getList().get(j));
+        }
+        clientApp.randomFillVariant();
         
-//        //start server
-//        KryoServer.main(args);
-//        
-//        //start client
-//        KryoClient.main(args);
+        //System.out.println("ArrayList from MainServer: " + variation.getList());
+        //start server
+        KryoServer.main(args);
+        
+        //start client
+        KryoClient.main(args);
     }
 
 }

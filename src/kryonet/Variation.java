@@ -17,11 +17,26 @@ public class Variation {
 
     private int variationNr;
     private int correctNumbers;
-    private ArrayList<Integer> selectedNumbers;
+    private ArrayList<Integer> selectedNumbers = new ArrayList<>();
     private String clientEmail;
     private Date date;
 
+    /**
+     * 
+     */
     public Variation() {
+        
+    }
+    
+    /**
+     * 
+     * @param variationNr
+     * @param correctNumbers
+     * @param selectedNumbers
+     * @param clientEmail
+     * @param date 
+     */
+    public Variation(int variationNr, int correctNumbers, ArrayList<Integer> selectedNumbers, String clientEmail, Date date){
         selectedNumbers = new ArrayList<>();
         variationNr = 1;
         correctNumbers = 0;

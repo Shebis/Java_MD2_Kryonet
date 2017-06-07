@@ -17,9 +17,9 @@ import kryonet.Packet.Packet02Variation;
 public class KryoClientListener extends Listener{
     private Client client;
     //private KryoClient kryoClient = new KryoClient();
-    private final ClientApp clientApp = new ClientApp();
-    private final Variation variation = new Variation();
-    private final Packet02Variation packet = new Packet02Variation();
+    //private final ClientApp clientApp = new ClientApp();
+    private Variation variation = new Variation();
+    private Packet02Variation packet = new Packet02Variation();
     
     /**
      * 
@@ -45,16 +45,7 @@ public class KryoClientListener extends Listener{
 ////        firstMessage.message = "Hello!";
 //        client.sendTCP(firstMessage);
 
-        clientApp.askHowManyOptions();
-        clientApp.askWhichVariantsToFill();
-        for(int i = 0; i < clientApp.getUserInputOptionsVariants(); i++){
-            clientApp.userFillVariant();
-            variation.setVariationNr(clientApp.getUserInputOptionsVariants()+1);
-        }
-        for(int j = 0; j < variation.getList().size(); j++){
-                variation.getList().get(j);
-            }
-        clientApp.randomFillVariant();
+        
         
         packet.variation = variation;
         sendVariation(packet);

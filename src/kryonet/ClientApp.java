@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class ClientApp {
 
-    private static Variation variation;
+    private static Variation variation = new Variation();
     private static int userInputOptions;
     private static int userInputOptionsVariants;
 
@@ -22,7 +22,7 @@ public class ClientApp {
      *
      */
     public ClientApp() {
-        variation = new Variation();
+        //variation = new Variation();
         //List<Integer> selectedNumbers = variation.getList();
         userInputOptions = 0;
         userInputOptionsVariants = 0;
@@ -107,12 +107,14 @@ public class ClientApp {
                     if (userInputNumber <= 0 || userInputNumber > 35) {
                         errorMessage = "That number is not within the \n" + "allowed range!\n";
                     } else {
+                        //insert number into array selectedNumbers
+                        variation.insertIntoArrayList(userInputNumber);
+                        System.out.println("ArrayList from ClientApp: " + variation.getList());
                         JOptionPane.showMessageDialog(null, "Thank you! You inserted number Nr. "
                                 + index + " !",
                                 "User Input", JOptionPane.INFORMATION_MESSAGE);
                         errorMessage = ""; // no more error
-                        index++;
-                        variation.insertIntoArrayList(userInputNumber);
+                        index++;                        
                     }
                 } catch (NumberFormatException ex) {
                     // The typed text was not an integer
@@ -148,17 +150,17 @@ public class ClientApp {
                 variation.insertIntoArrayList(random);
             }
         }
-        System.out.println("User Variation Nr." + variation.getVariationNr() + " Numbers:");
-        for (int i = 0; i < variation.getList().size(); i++) {
-            if (i == 0) {
-                System.out.print("[ " + variation.getList().get(i));
-            } else if (i == variation.getList().size() - 1) {
-                System.out.print(" , " + variation.getList().get(i) + " ]\n");
-            } else {
-                System.out.print(" , " + variation.getList().get(i));
-            }
-        }
-        System.out.println("\n");
+//        System.out.println("User Variation Nr." + variation.getVariationNr() + " Numbers:");
+//        for (int i = 0; i < variation.getList().size(); i++) {
+//            if (i == 0) {
+//                System.out.print("[ " + variation.getList().get(i));
+//            } else if (i == variation.getList().size() - 1) {
+//                System.out.print(" , " + variation.getList().get(i) + " ]\n");
+//            } else {
+//                System.out.print(" , " + variation.getList().get(i));
+//            }
+//        }
+//        System.out.println("\n");
     }
 
     /**
