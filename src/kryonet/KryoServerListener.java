@@ -92,7 +92,8 @@ public class KryoServerListener extends Listener {
     }
 
     /**
-     *  Function to check if array elements match
+     * Function to check if array elements match
+     *
      * @param list1 - auto generated array with winning numbers
      * @param list2 - user input array
      */

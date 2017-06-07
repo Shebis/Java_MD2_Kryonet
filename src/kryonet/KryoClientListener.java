@@ -9,78 +9,66 @@ import com.esotericsoftware.kryonet.*;
 import kryonet.Packet.Packet01Message;
 import kryonet.Packet.Packet02Variation;
 
-
 /**
  *
  * @author Roberts Staskevics
  */
-public class KryoClientListener extends Listener{
+public class KryoClientListener extends Listener {
+
     private Client client;
     //private KryoClient kryoClient = new KryoClient();
     //private final ClientApp clientApp = new ClientApp();
-    private Variation variation = new Variation();
-    private Packet02Variation packet = new Packet02Variation();
-    
+
     /**
-     * 
-     * @param client 
+     * Kryonet Client Listener Constructor
+     *
+     * @param client
      */
-    public void init(Client client){
+    public void KryoClientListener(Client client) {
         this.client = client;
     }
-    
+
     /**
-     * 
-     * @param con 
+     *
+     * @param con
      */
-   @Override
-    public void connected(Connection con)
-    {
+    @Override
+    public void connected(Connection con) {
         System.out.println("You Are Connected!\n");
-        
+
 //        // Prepare and Send a Message to Server
 //        Packet.Packet01Message firstMessage = new Packet.Packet01Message();
 //        ClientApp clientapp = new ClientApp();
 //        firstMessage.message = variation.getList().toString();
 ////        firstMessage.message = "Hello!";
 //        client.sendTCP(firstMessage);
-
-        
-        
-        packet.variation = variation;
-        sendVariation(packet);
+        System.out.println("Object of class Packet02Variation was sent...");
     }
-    
+
     /**
-     * 
-     * @param con 
+     *
+     * @param con
      */
-    public void disconected(Connection con)
-    {
+    public void disconected(Connection con) {
         System.out.println("You Are Disconnected!");
         System.exit(0);
     }
-    
+
     /**
-     * 
+     *
      * @param con
-     * @param obj 
+     * @param obj
      */
     @Override
-    public void received(Connection con, Object obj)
-    {
+    public void received(Connection con, Object obj) {
         if (obj instanceof Packet01Message) {
             Packet01Message pm = (Packet01Message) obj;
             System.out.println("Server >>>> " + pm.message);
         }
-    } 
-    
+    }
+
 //    @Override
 //    public String toString(){
 //        return null;
-//    }
-    
-    public void sendVariation(Packet02Variation variation) {
-        client.sendTCP(variation);
-    }
+//    }  
 }

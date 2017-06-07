@@ -29,7 +29,7 @@ public class ClientApp {
     }
 
     /**
-     *
+     * Function for asking user how many Variations he wants
      */
     public void askHowManyOptions() {
         String errorMessage = "";
@@ -56,7 +56,8 @@ public class ClientApp {
     }
 
     /**
-     *
+     * Function for User to ask which Variations to fill by hand other
+     * Variations will fill automatically, with function randomFillVariant()
      */
     public void askWhichVariantsToFill() {
         String errorMessage = "";
@@ -86,7 +87,7 @@ public class ClientApp {
     }
 
     /**
-     *
+     * Function that allows User to enter five (5) numbers per Variation
      */
     public void userFillVariant() {
         int userInputNumber;
@@ -109,12 +110,12 @@ public class ClientApp {
                     } else {
                         //insert number into array selectedNumbers
                         variation.insertIntoArrayList(userInputNumber);
-                        System.out.println("ArrayList from ClientApp: " + variation.getList());
+                        System.out.println("ArrayList from ClientApp after insert from JOptionPane: " + variation.getList());
                         JOptionPane.showMessageDialog(null, "Thank you! You inserted number Nr. "
                                 + index + " !",
                                 "User Input", JOptionPane.INFORMATION_MESSAGE);
                         errorMessage = ""; // no more error
-                        index++;                        
+                        index++;
                     }
                 } catch (NumberFormatException ex) {
                     // The typed text was not an integer
@@ -140,7 +141,7 @@ public class ClientApp {
     }
 
     /**
-     *
+     * Function for Variation automatic filling
      */
     public void randomFillVariant() {
         int random;
@@ -164,10 +165,11 @@ public class ClientApp {
     }
 
     /**
+     * Function that generates Integer in range between min and max
      *
-     * @param min
-     * @param max
-     * @return randomNum
+     * @param min - smallest Integer value
+     * @param max - largest Integer value
+     * @return randomNum - Integer between (included) min and max value
      */
     public int randInt(int min, int max) {
         Random rand = new Random();
@@ -176,8 +178,9 @@ public class ClientApp {
     }
 
     /**
-     * 
-     * @return userInputOptionsVariants
+     * Function that returns how many Variations fill by hand
+     *
+     * @return userInputOptionsVariants - Integer value
      */
     public int getUserInputOptionsVariants() {
         return userInputOptionsVariants;
