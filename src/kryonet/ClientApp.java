@@ -22,10 +22,12 @@ public class ClientApp {
      *
      */
     public ClientApp() {
-        //variation = new Variation();
-        //List<Integer> selectedNumbers = variation.getList();
         userInputOptions = 0;
         userInputOptionsVariants = 0;
+    }
+
+    public static void main(String[] args) {
+        
     }
 
     /**

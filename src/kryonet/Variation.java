@@ -17,7 +17,7 @@ public class Variation {
 
     private int variationNr;
     private int correctNumbers;
-    private ArrayList<Integer> selectedNumbers = new ArrayList<>();
+    public static ArrayList<Integer> selectedNumbers = new ArrayList<>();
     private String clientEmail;
     private Date date;
 

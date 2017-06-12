@@ -23,13 +23,11 @@ public final class KryoClient {
 
     public Client client;
     private KryoClientListener kclistener;
-    private Variation variation = new Variation();
-    private Packet02Variation packet = new Packet02Variation();
 
     /**
      * Kryonet Client Constructor
      */
-    public KryoClient() {
+    public KryoClient(Packet02Variation packet02Variation) throws IOException {
         //1. create a new Client
         client = new Client();
         //2. create Client Listener
@@ -40,28 +38,13 @@ public final class KryoClient {
         registerPacket();
         //5. Start the client
         client.start();
-        
-        new Thread(){
-            public void run(){
-                //6. Connect to the correct ip address and port
-                try {
-                    client.connect(timeout, ipAdress, portSocket);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-        
-        //7. Send all the filled variations to the server
-        packet.variation = variation;
-        sendVariation(packet);
-    }
 
-    public static void main(String[] args) throws IOException {
-        new KryoClient();
+        client.connect(timeout, ipAdress, portSocket);
+
+        sendVariation(packet02Variation);
+
         while (true) {
         }
-
     }
 
     /**

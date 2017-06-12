@@ -26,12 +26,16 @@ public class KryoServerListener extends Listener {
     private Packet02Variation pack = new Packet02Variation();
 
     public KryoServerListener(Server server) {
-        super();
+//        super();
         this.server = server;
         clientapp = new ClientApp();
 
         winningNumbers = new ArrayList<>();
 
+        /**
+         * Generate five winning Numbers
+         * Add to winningNumbers array
+         */
         randomNumb = 0;
         for (int i = 0; i < 5; i++) {
             randomNumb = clientapp.randInt(1, 35);
@@ -65,30 +69,15 @@ public class KryoServerListener extends Listener {
     public void received(Connection con, Object obj) {
         System.out.println("received " + obj);
         //System.out.println("ArrayList from ServerListener: " + var.getList());
-        if (obj instanceof Packet01Message) {
-            Packet01Message pm = (Packet01Message) obj;
-            System.out.println("Client >>>> " + pm.message);
-        }
+//        if (obj instanceof Packet01Message) {
+//            Packet01Message pm = (Packet01Message) obj;
+//            System.out.println("Client >>>> " + pm.message);
+//        }
 
         if (obj instanceof Packet02Variation) {
-            Packet02Variation vm = (Packet02Variation) obj;
-            System.out.println("Client <===> " + vm.variation);
-            checkArrayElements(winningNumbers, vm.variation.getList());
+            System.out.println("Packet02Variation received");
+            System.out.println(((Packet02Variation) obj).variation.toString());
         }
-    }
-
-    public void sendMSGToAll(String message) {
-        Connection[] allClients = server.getConnections();
-        for (Connection con : allClients) {
-            con.sendTCP(message);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Nr. " + pack.variation.getVariationNr()
-                + "User Numbers: " + pack.variation.getList()
-                + "User Email: " + pack.variation.getClientEmail();
     }
 
     /**

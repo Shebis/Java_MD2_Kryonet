@@ -32,8 +32,8 @@ public class KryoServer {
         //5. bind server
         try {
             server.bind(portSocket);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
 
         //4. register class type
@@ -41,12 +41,9 @@ public class KryoServer {
 
         //6. start server
         server.start();
-    }
 
-    public static void main(String[] args) throws IOException {
         System.out.println("Server is starting! ");
         System.out.println("Server is running! \n");
-        new KryoServer();
     }
 
     private void registerPackets() {
