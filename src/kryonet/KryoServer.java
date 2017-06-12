@@ -57,6 +57,7 @@ public class KryoServer {
         kryo.register(KryoClient.class);
         kryo.register(KryoClientListener.class);
         kryo.register(KryoServerListener.class);
+        kryo.register(java.util.Date.class);
 
     }
 }

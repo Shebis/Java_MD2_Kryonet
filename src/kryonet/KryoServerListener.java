@@ -23,7 +23,7 @@ public class KryoServerListener extends Listener {
     private ArrayList<Integer> winningNumbers;
     private int randomNumb;
     //private Variation var = new Variation();
-    private Packet02Variation pack = new Packet02Variation();
+    //private Packet02Variation pack = new Packet02Variation();
 
     public KryoServerListener(Server server) {
 //        super();
@@ -69,10 +69,11 @@ public class KryoServerListener extends Listener {
     public void received(Connection con, Object obj) {
         System.out.println("received " + obj);
         //System.out.println("ArrayList from ServerListener: " + var.getList());
-//        if (obj instanceof Packet01Message) {
-//            Packet01Message pm = (Packet01Message) obj;
-//            System.out.println("Client >>>> " + pm.message);
-//        }
+        if (obj instanceof Packet01Message) {
+            //Packet01Message pm = (Packet01Message) obj;
+            System.out.println("Packet01Message received");
+            System.out.println(((Packet01Message) obj).message);
+        }
 
         if (obj instanceof Packet02Variation) {
             System.out.println("Packet02Variation received");

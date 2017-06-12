@@ -5,8 +5,11 @@
  */
 package kryonet;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
@@ -14,9 +17,12 @@ import javax.swing.JOptionPane;
  */
 public class ClientApp {
 
-    private static Variation variation = new Variation();
+    private static ClientApp clientApp = new ClientApp();
+    //private static Variation variation = new Variation(0, 0, selectedNumbers, clientEmail, date);
     private static int userInputOptions;
     private static int userInputOptionsVariants;
+    private static ArrayList<Integer> arrayOfVariationNumbers;
+    private static ArrayList<Integer> arrayRandom;
 
     /**
      *
@@ -24,10 +30,28 @@ public class ClientApp {
     public ClientApp() {
         userInputOptions = 0;
         userInputOptionsVariants = 0;
+        arrayOfVariationNumbers = new ArrayList<>();
+        arrayRandom = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        clientApp.askHowManyOptions();
+        clientApp.askWhichVariantsToFill();
+
+        //for(int i = 1; i <= userInputOptions; i++){
+        clientApp.userFillVariant(arrayOfVariationNumbers);
+        clientApp.randomFillVariant(arrayRandom);
+        //}
+
+        System.out.println("Your entered List of Integers - " + arrayOfVariationNumbers);
+        System.out.println("Array of random integers - " + arrayRandom);
         
+        Variation variation = new Variation(1, arrayOfVariationNumbers, "espasts");
+        Packet02Variation packet02Variation = new Packet02Variation();
+        packet02Variation.variation = variation;
+        KryoClient kryoClient = new KryoClient(packet02Variation);
+
     }
 
     /**
@@ -37,10 +61,11 @@ public class ClientApp {
         String errorMessage = "";
         do {
             // Show input dialog with current error message, if any
-            String stringInput = JOptionPane.showInputDialog(null, errorMessage + "Enter number (1-5):", "Input number...");
+            String stringInput = JOptionPane.showInputDialog(null, errorMessage
+                    + "Enter number (1-5):", "Input number...");
             try {
                 userInputOptions = Integer.parseInt(stringInput);
-                variation.setVariationNr(userInputOptions);
+                //variation.setVariationNr(userInputOptions);
                 //System.out.println("userInputOptions: " + userInputOptions);
                 if (userInputOptions <= 0 || userInputOptions >= 6) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
@@ -71,7 +96,6 @@ public class ClientApp {
                     "Input number of variants...");
             try {
                 userInputOptionsVariants = Integer.parseInt(stringInput);
-                //System.out.println("userInputOptionsVariants: " + userInputOptionsVariants);
                 if (userInputOptionsVariants < 0 || userInputOptionsVariants > userInputOptions) {
                     errorMessage = "That number is not within the \n" + "allowed range!\n";
                 } else {
@@ -90,14 +114,14 @@ public class ClientApp {
 
     /**
      * Function that allows User to enter five (5) numbers per Variation
+     *
+     * @param list
+     * @return
      */
-    public void userFillVariant() {
+    public ArrayList<Integer> userFillVariant(ArrayList<Integer> list) {
         int userInputNumber;
         String errorMessage = "";
-        //for (int j = 0; j < userInputOptionsVariants; j++) {
-        //if (userInputOptionsVariants == 1) {
         int index = 1;
-        variation.setVariationNr(index);
         for (int i = 0; i < 5; i++) {
             do {
                 // Show input dialog with current error message, if any
@@ -106,13 +130,14 @@ public class ClientApp {
                         "Enter number...");
                 try {
                     userInputNumber = Integer.parseInt(stringInput);
-                    //System.out.println("userInputOptions: " + userInputOptions);
                     if (userInputNumber <= 0 || userInputNumber > 35) {
                         errorMessage = "That number is not within the \n" + "allowed range!\n";
+                    } else if (list.contains(userInputNumber)) {
+                        errorMessage = "Number '" + userInputNumber + "' already exists!\n";
                     } else {
                         //insert number into array selectedNumbers
-                        variation.insertIntoArrayList(userInputNumber);
-                        System.out.println("ArrayList from ClientApp after insert from JOptionPane: " + variation.getList());
+                        list.add(userInputNumber);
+                        System.out.println("ArrayList from ClientApp after insert from JOptionPane: " + list);
                         JOptionPane.showMessageDialog(null, "Thank you! You inserted number Nr. "
                                 + index + " !",
                                 "User Input", JOptionPane.INFORMATION_MESSAGE);
@@ -124,46 +149,25 @@ public class ClientApp {
                     errorMessage = "The text you typed is not a number.\n";
                 }
             } while (!errorMessage.isEmpty());
-            //}
         }
-        //for (int j = 0; j < userInputOptionsVariants; j++) {
-        // array output           
-        System.out.println("User Variation Nr." + variation.getVariationNr() + " Numbers:");
-        for (int i = 0; i < variation.getList().size(); i++) {
-            if (i == 0) {
-                System.out.print("[ " + variation.getList().get(i));
-            } else if (i == variation.getList().size() - 1) {
-                System.out.print(" , " + variation.getList().get(i) + " ]\n");
-            } else {
-                System.out.print(" , " + variation.getList().get(i));
-            }
-        }
-        System.out.println("\n");
-        //}
+        return list;
     }
 
     /**
      * Function for Variation automatic filling
+     *
+     * @param list
+     * @return list of integers
      */
-    public void randomFillVariant() {
+    public ArrayList<Integer> randomFillVariant(ArrayList<Integer> list) {
         int random;
         for (int j = 0; j < userInputOptions - userInputOptionsVariants; j++) {
             for (int i = 0; i < 5; i++) {
                 random = randInt(1, 35);
-                variation.insertIntoArrayList(random);
+                list.add(random);
             }
         }
-//        System.out.println("User Variation Nr." + variation.getVariationNr() + " Numbers:");
-//        for (int i = 0; i < variation.getList().size(); i++) {
-//            if (i == 0) {
-//                System.out.print("[ " + variation.getList().get(i));
-//            } else if (i == variation.getList().size() - 1) {
-//                System.out.print(" , " + variation.getList().get(i) + " ]\n");
-//            } else {
-//                System.out.print(" , " + variation.getList().get(i));
-//            }
-//        }
-//        System.out.println("\n");
+        return list;
     }
 
     /**

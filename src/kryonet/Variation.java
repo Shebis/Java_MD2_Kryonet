@@ -7,6 +7,7 @@ package kryonet;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 
 /**
@@ -19,29 +20,27 @@ public class Variation {
     private int correctNumbers;
     public static ArrayList<Integer> selectedNumbers = new ArrayList<>();
     private String clientEmail;
-    private Date date;
+    private Date date = new Date();
 
     /**
      * Variation constructor without parameters
      */
     public Variation() {
-        System.out.println("Selected Numbers List in Variation constructor: " + getList());
+        //System.out.println("Selected Numbers List in Variation constructor: " + getList());
     }
 
     /**
      * Variation constructor with parameters
      *
      * @param variationNr
-     * @param correctNumbers
      * @param selectedNumbers
      * @param clientEmail
-     * @param date
      */
-    public Variation(int variationNr, int correctNumbers, ArrayList<Integer> selectedNumbers, String clientEmail, Date date) {
-        selectedNumbers = new ArrayList<>();
-        variationNr = 1;
-        correctNumbers = 0;
-        clientEmail = "";
+    public Variation(int variationNr, ArrayList<Integer> selectedNumbers, String clientEmail) {
+        this.selectedNumbers = selectedNumbers;
+        this.variationNr = variationNr;
+        this.correctNumbers = 0;
+        this.clientEmail = clientEmail;
     }
 
     /**
@@ -128,4 +127,13 @@ public class Variation {
     public void insertIntoArrayList(int element) {
         selectedNumbers.add(element);
     }
+
+    @Override
+    public String toString() {
+        return "Variation {" + "Variation Nr. = " + variationNr
+                + ", Correct Numbers = " + correctNumbers
+                + ", Client Email = " + clientEmail
+                + ", Date = " + date + " }";
+    }
+
 }
