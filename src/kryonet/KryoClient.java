@@ -30,6 +30,7 @@ public final class KryoClient {
      * @throws java.io.IOException
      */
     public KryoClient(Packet02Variation packet02Variation) throws IOException {
+//    public KryoClient( ) throws IOException {
         //1. create a new Client
         client = new Client();
         //2. create Client Listener
@@ -43,11 +44,17 @@ public final class KryoClient {
 
         client.connect(timeout, ipAdress, portSocket);
 
-        sendVariation(packet02Variation);
+        //sendVariation(packet02Variation);
+        
+        
         
         Packet01Message pm = new Packet01Message();
         pm.message = "Random Message to send away...";
         client.sendTCP(pm);
+        
+        
+        client.sendTCP(packet02Variation);
+        
         System.out.println("sent..");
         while (true) {
         }
@@ -62,12 +69,12 @@ public final class KryoClient {
         kryo.register(Packet01Message.class);
         kryo.register(Packet02Variation.class);
         kryo.register(Variation.class);
-        kryo.register(ClientApp.class);
+//        kryo.register(ClientApp.class);
         kryo.register(java.util.ArrayList.class);
-        kryo.register(KryoClientListener.class);
-        kryo.register(KryoServer.class);
-        kryo.register(KryoServerListener.class);
+//        kryo.register(KryoClientListener.class);
         kryo.register(java.util.Date.class);
+        kryo.register(String[].class);
+        kryo.register(Integer[].class);
     }
 
     /**

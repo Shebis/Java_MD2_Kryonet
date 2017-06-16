@@ -5,15 +5,14 @@
  */
 package kryonet;
 
+import java.io.IOException;
+
 /**
  *
- * @author Roberts Staskevics
+ * @author rober
  */
-public class Packet {
-    public static class Packet01Message {
-        String message;
-    }
-    public static class Packet02Variation{
-        Variation variation;   
+public class MainClient {
+    public static void main(String[] args) throws IOException {
+//        KryoClient kryoServ = new KryoClient();
     }
 }

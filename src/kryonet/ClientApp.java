@@ -21,7 +21,7 @@ public class ClientApp {
     //private static Variation variation = new Variation(0, 0, selectedNumbers, clientEmail, date);
     private static int userInputOptions;
     private static int userInputOptionsVariants;
-    private static ArrayList<Integer> arrayOfVariationNumbers;
+    private static ArrayList<Integer> arrayOfVariationNumbers = new ArrayList<>();
     private static ArrayList<Integer> arrayRandom;
 
     /**
@@ -30,12 +30,14 @@ public class ClientApp {
     public ClientApp() {
         userInputOptions = 0;
         userInputOptionsVariants = 0;
-        arrayOfVariationNumbers = new ArrayList<>();
+//        arrayOfVariationNumbers = new ArrayList<>();
         arrayRandom = new ArrayList<>();
     }
 
     public static void main(String[] args) throws IOException {
 
+//        ArrayList<Integer> aryyay = new ArrayList<>();
+        
         clientApp.askHowManyOptions();
         clientApp.askWhichVariantsToFill();
 
@@ -47,10 +49,11 @@ public class ClientApp {
         System.out.println("Your entered List of Integers - " + arrayOfVariationNumbers);
         System.out.println("Array of random integers - " + arrayRandom);
         
-        Variation variation = new Variation(1, arrayOfVariationNumbers, "espasts");
+        Variation variation = new Variation(1, arrayOfVariationNumbers, "epasts");
         Packet02Variation packet02Variation = new Packet02Variation();
         packet02Variation.variation = variation;
         KryoClient kryoClient = new KryoClient(packet02Variation);
+        
 
     }
 

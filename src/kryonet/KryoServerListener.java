@@ -62,7 +62,6 @@ public class KryoServerListener extends Listener {
 
     public void disconected(Connection con) {
         System.out.println("User has disconnected!\n");
-        System.exit(0);
     }
 
     @Override
@@ -78,6 +77,8 @@ public class KryoServerListener extends Listener {
         if (obj instanceof Packet02Variation) {
             System.out.println("Packet02Variation received");
             System.out.println(((Packet02Variation) obj).variation.toString());
+            checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
+            //((Packet02Variation) obj).variation.getVariationNr();
         }
     }
 
@@ -98,6 +99,6 @@ public class KryoServerListener extends Listener {
                 }
             }
         }
-        System.out.println(same);
+        System.out.println("Completely matching numbers: " + same);
     }
 }

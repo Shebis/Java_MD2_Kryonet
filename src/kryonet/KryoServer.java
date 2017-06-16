@@ -54,10 +54,11 @@ public class KryoServer {
         kryo.register(Variation.class);
         //kryo.register(ClientApp.class);
         kryo.register(java.util.ArrayList.class);
-        kryo.register(KryoClient.class);
-        kryo.register(KryoClientListener.class);
-        kryo.register(KryoServerListener.class);
+//        kryo.register(KryoClient.class);
+//        kryo.register(KryoClientListener.class);
+//        kryo.register(KryoServerListener.class);
         kryo.register(java.util.Date.class);
-
+        kryo.register(String[].class);
+        kryo.register(Integer[].class);
     }
 }

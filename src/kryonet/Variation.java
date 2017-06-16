@@ -18,7 +18,7 @@ public class Variation {
 
     private int variationNr;
     private int correctNumbers;
-    public static ArrayList<Integer> selectedNumbers = new ArrayList<>();
+    public ArrayList<Integer> selectedNumbers = new ArrayList<>();
     private String clientEmail;
     private Date date = new Date();
 
@@ -131,7 +131,8 @@ public class Variation {
     @Override
     public String toString() {
         return "Variation {" + "Variation Nr. = " + variationNr
-                + ", Correct Numbers = " + correctNumbers
+                + ", Your Selected Numbers = " + selectedNumbers
+                //+ ", Correct Numbers = " + correctNumbers
                 + ", Client Email = " + clientEmail
                 + ", Date = " + date + " }";
     }
