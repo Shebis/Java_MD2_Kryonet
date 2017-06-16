@@ -14,11 +14,10 @@ import java.io.IOException;
 public class MainServer {
 
     /**
-     * 
+     *
      * @param args
-     * @throws IOException 
+     * @throws IOException
      */
-     
     public static void main(String[] args) throws IOException {
         KryoServer kryoServ = new KryoServer();
     }

@@ -36,8 +36,6 @@ public class ClientApp {
 
     public static void main(String[] args) throws IOException {
 
-//        ArrayList<Integer> aryyay = new ArrayList<>();
-        
         clientApp.askHowManyOptions();
         clientApp.askWhichVariantsToFill();
 
@@ -48,17 +46,17 @@ public class ClientApp {
 
         System.out.println("Your entered List of Integers - " + arrayOfVariationNumbers);
         System.out.println("Array of random integers - " + arrayRandom);
-        
+
         Variation variation = new Variation(1, arrayOfVariationNumbers, "epasts");
         Packet02Variation packet02Variation = new Packet02Variation();
         packet02Variation.variation = variation;
         KryoClient kryoClient = new KryoClient(packet02Variation);
-        
 
     }
 
     /**
-     * Function for asking user how many Variations he wants
+     * Function for asking user how many Variations he wants choose between 1
+     * and 5
      */
     public void askHowManyOptions() {
         String errorMessage = "";

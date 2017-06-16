@@ -33,8 +33,7 @@ public class KryoServerListener extends Listener {
         winningNumbers = new ArrayList<>();
 
         /**
-         * Generate five winning Numbers
-         * Add to winningNumbers array
+         * Generate five winning Numbers Add to winningNumbers array
          */
         randomNumb = 0;
         for (int i = 0; i < 5; i++) {
@@ -78,7 +77,7 @@ public class KryoServerListener extends Listener {
             System.out.println("Packet02Variation received");
             System.out.println(((Packet02Variation) obj).variation.toString());
             checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
-            //((Packet02Variation) obj).variation.getVariationNr();
+
         }
     }
 
@@ -99,6 +98,6 @@ public class KryoServerListener extends Listener {
                 }
             }
         }
-        System.out.println("Completely matching numbers: " + same);
+        System.out.println("Count of All matching numbers: " + same);
     }
 }

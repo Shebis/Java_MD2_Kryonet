@@ -8,6 +8,7 @@ package kryonet;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import kryonet.Packet.Packet01Message;
 import kryonet.Packet.Packet02Variation;
 
@@ -26,6 +27,7 @@ public final class KryoClient {
 
     /**
      * Kryonet Client Constructor
+     *
      * @param packet02Variation
      * @throws java.io.IOException
      */
@@ -45,17 +47,16 @@ public final class KryoClient {
         client.connect(timeout, ipAdress, portSocket);
 
         //sendVariation(packet02Variation);
-        
-        
-        
         Packet01Message pm = new Packet01Message();
         pm.message = "Random Message to send away...";
         client.sendTCP(pm);
-        
-        
+
         client.sendTCP(packet02Variation);
-        
+
         System.out.println("sent..");
+        JOptionPane.showMessageDialog(null, "You submitted "
+                + packet02Variation.variation.getVariationNr()
+                + " variation!", "Message", JOptionPane.WARNING_MESSAGE);
         while (true) {
         }
     }
