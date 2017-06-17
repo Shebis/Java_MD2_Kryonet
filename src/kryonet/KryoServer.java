@@ -19,44 +19,48 @@ public class KryoServer {
 
     private static final int portSocket = 8070;
 
-    Server server;
-    KryoServerListener kslistener;
+    private Server server;
+    private KryoServerListener kslistener;
+    private ActionWithDB database;
 
-    public KryoServer() {
+    public KryoServer() throws IOException {
+        configureAndStartServer();
+    }
+
+    /**
+     * Server configuration
+     *
+     * @throws IOException
+     */
+    public void configureAndStartServer() throws IOException {
         //1. create Server
         server = new Server();
         //2. create Listener
-        kslistener = new KryoServerListener(server);
+        kslistener = new KryoServerListener();
+        database = new ActionWithDB();
         //3. add Listener to server
         server.addListener(kslistener);
         //5. bind server
-        try {
-            server.bind(portSocket);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-
+        server.bind(portSocket);
         //4. register class type
         registerPackets();
-
         //6. start server
         server.start();
-
         System.out.println("Server is starting! ");
         System.out.println("Server is running! \n");
+        database.createClientTable();
     }
 
+    /**
+     * Register all used packets
+     */
     private void registerPackets() {
         //4. register class type
         Kryo kryo = server.getKryo();
         kryo.register(Packet01Message.class);
         kryo.register(Packet02Variation.class);
         kryo.register(Variation.class);
-        //kryo.register(ClientApp.class);
         kryo.register(java.util.ArrayList.class);
-//        kryo.register(KryoClient.class);
-//        kryo.register(KryoClientListener.class);
-//        kryo.register(KryoServerListener.class);
         kryo.register(java.util.Date.class);
         kryo.register(String[].class);
         kryo.register(Integer[].class);

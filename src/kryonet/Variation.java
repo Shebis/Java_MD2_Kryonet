@@ -132,7 +132,7 @@ public class Variation {
     public String toString() {
         return "Variation {" + "Variation Nr. = " + variationNr
                 + ", Your Selected Numbers = " + selectedNumbers
-                //+ ", Correct Numbers = " + correctNumbers
+                + ", Correct Numbers = " + correctNumbers
                 + ", Client Email = " + clientEmail
                 + ", Date = " + date + " }";
     }

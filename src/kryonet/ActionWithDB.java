@@ -20,7 +20,7 @@ public class ActionWithDB {
 
     }
 
-    public Connection connect() throws SQLException {
+    private Connection connect() throws SQLException {
         Connection connection = null;
         String url = "jdbc:sqlite:bingo.db";
         connection = DriverManager.getConnection(url);
@@ -29,22 +29,28 @@ public class ActionWithDB {
 
     public void createClientTable() {
         String sqlClientTable = "CREATE TABLE IF NOT EXISTS Client (\n"
-                + "VariationID INTEGER PRIMARY KEY, \n"
-                + "SelectedNumbers INTEGER, \n"
+                + "VariationID INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                + "NumberOne INTEGER, \n"
+                + "NumberTwo INTEGER, \n"
+                + "NumberThree INTEGER, \n"
+                + "NumberFour INTEGER, \n"
+                + "NumberFive INTEGER, \n"
                 + "Date VARCHAR(255), \n"
-                + "ClientEmail VARCHAR(255), \n"
+                + "ClientEmail VARCHAR(255)\n"
                 + "); \n";
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement()) {
             stmt.execute(sqlClientTable);
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
     
     public void insertIntoClientTable(){
-        String sqlInsertIntoDB = "INSERT INTO Client (VariationID, SelectedNumbers, Date, ClientEmail) "
-                + "VALUES (?, ?, ?, ?)";
+        String sqlInsertIntoDB = "INSERT INTO Client (NumberOne, NumberTwo, "
+                + "NumberThree, NumberFour, NumberFive, Date, ClientEmail) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
     }
 
 }

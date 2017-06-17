@@ -24,10 +24,11 @@ public class KryoServerListener extends Listener {
     private int randomNumb;
     //private Variation var = new Variation();
     //private Packet02Variation pack = new Packet02Variation();
+    private int same = 0;
 
-    public KryoServerListener(Server server) {
+    public KryoServerListener() {
 //        super();
-        this.server = server;
+//        this.server = server;
         clientapp = new ClientApp();
 
         winningNumbers = new ArrayList<>();
@@ -66,9 +67,7 @@ public class KryoServerListener extends Listener {
     @Override
     public void received(Connection con, Object obj) {
         System.out.println("received " + obj);
-        //System.out.println("ArrayList from ServerListener: " + var.getList());
         if (obj instanceof Packet01Message) {
-            //Packet01Message pm = (Packet01Message) obj;
             System.out.println("Packet01Message received");
             System.out.println(((Packet01Message) obj).message);
         }
@@ -76,8 +75,11 @@ public class KryoServerListener extends Listener {
         if (obj instanceof Packet02Variation) {
             System.out.println("Packet02Variation received");
             System.out.println(((Packet02Variation) obj).variation.toString());
+            //check both arrays for matching elements
             checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
-
+            ((Packet02Variation) obj).variation.setCorrectNumbers(same);
+            con.sendTCP(obj);
+            same = 0;
         }
     }
 
@@ -87,8 +89,7 @@ public class KryoServerListener extends Listener {
      * @param list1 - auto generated array with winning numbers
      * @param list2 - user input array
      */
-    public static void checkArrayElements(ArrayList<Integer> list1, List<Integer> list2) {
-        int same = 0;
+    public void checkArrayElements(ArrayList<Integer> list1, List<Integer> list2) {      
         for (int i = 0; i <= list1.size() - 1; i++) {
             for (int j = 0; j <= list2.size() - 1; j++) {
                 if (Objects.equals(list1.get(i), list2.get(j))) {

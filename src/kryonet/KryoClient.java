@@ -32,21 +32,8 @@ public final class KryoClient {
      * @throws java.io.IOException
      */
     public KryoClient(Packet02Variation packet02Variation) throws IOException {
-//    public KryoClient( ) throws IOException {
-        //1. create a new Client
-        client = new Client();
-        //2. create Client Listener
-        kclistener = new KryoClientListener();
-        //3. add listener to client
-        client.addListener(kclistener);
-        // Register all the possible packets sent
-        registerPacket();
-        //5. Start the client
-        client.start();
-
-        client.connect(timeout, ipAdress, portSocket);
-
-        //sendVariation(packet02Variation);
+        configureAndStartClient();
+        
         Packet01Message pm = new Packet01Message();
         pm.message = "Random Message to send away...";
         client.sendTCP(pm);
@@ -60,6 +47,24 @@ public final class KryoClient {
         while (true) {
         }
     }
+    
+    /**
+     * Client configuration
+     * @throws IOException 
+     */
+    public void configureAndStartClient() throws IOException{
+        //1. create a new Client
+        client = new Client();
+        //2. create Client Listener
+        kclistener = new KryoClientListener();
+        //3. add listener to client
+        client.addListener(kclistener);
+        // Register all the possible packets sent
+        registerPacket();
+        //5. Start the client
+        client.start();
+        client.connect(timeout, ipAdress, portSocket);
+    }
 
     /**
      * Function for Packet registration
@@ -70,9 +75,7 @@ public final class KryoClient {
         kryo.register(Packet01Message.class);
         kryo.register(Packet02Variation.class);
         kryo.register(Variation.class);
-//        kryo.register(ClientApp.class);
         kryo.register(java.util.ArrayList.class);
-//        kryo.register(KryoClientListener.class);
         kryo.register(java.util.Date.class);
         kryo.register(String[].class);
         kryo.register(Integer[].class);

@@ -16,6 +16,7 @@ import kryonet.Packet.Packet02Variation;
 public class KryoClientListener extends Listener {
 
     private Client client;
+    private ActionWithDB database = new ActionWithDB();
 
     /**
      * Kryonet Client Listener Constructor
@@ -50,9 +51,11 @@ public class KryoClientListener extends Listener {
      */
     @Override
     public void received(Connection con, Object obj) {
+        System.out.println("Received " + obj);
         if (obj instanceof Packet02Variation) {
             System.out.println("Packet02Variation received");
             System.out.println(((Packet02Variation) obj).variation.toString());
+            database.insertIntoClientTable();
         }
     }
 
