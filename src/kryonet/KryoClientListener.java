@@ -55,7 +55,7 @@ public class KryoClientListener extends Listener {
         if (obj instanceof Packet02Variation) {
             System.out.println("Packet02Variation received");
             System.out.println(((Packet02Variation) obj).variation.toString());
-            database.insertIntoClientTable();
+//            database.insertIntoClientTable();
         }
     }
 

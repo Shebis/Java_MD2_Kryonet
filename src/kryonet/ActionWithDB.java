@@ -6,9 +6,12 @@
 package kryonet;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import kryonet.Packet.Packet02Variation;
 
 /**
  *
@@ -28,6 +31,7 @@ public class ActionWithDB {
     }
 
     public void createClientTable() {
+        String sqlDropTable = "DROP TABLE IF EXISTS Client";
         String sqlClientTable = "CREATE TABLE IF NOT EXISTS Client (\n"
                 + "VariationID INTEGER PRIMARY KEY AUTOINCREMENT, \n"
                 + "NumberOne INTEGER, \n"
@@ -40,16 +44,33 @@ public class ActionWithDB {
                 + "); \n";
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlDropTable);
             stmt.execute(sqlClientTable);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
-    public void insertIntoClientTable(){
+
+    public void insertIntoClientTable(Variation variation) throws SQLException {
         String sqlInsertIntoDB = "INSERT INTO Client (NumberOne, NumberTwo, "
                 + "NumberThree, NumberFour, NumberFive, Date, ClientEmail) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sqlInsertIntoDB)) {
+            //for (Packet02Variation packet02Variation : variation ) {
+            pstmt.setInt(1, variation.getList().get(0));
+            pstmt.setInt(2, variation.getList().get(1));
+            pstmt.setInt(3, variation.getList().get(2));
+            pstmt.setInt(4, variation.getList().get(3));
+            pstmt.setInt(5, variation.getList().get(4));
+            pstmt.setString(6, variation.getDate().toString());
+            pstmt.setString(7, variation.getClientEmail());
+            
+            pstmt.executeUpdate();
+        }
+    }
+    
+    public void selectFromClientTable(){
         
     }
 

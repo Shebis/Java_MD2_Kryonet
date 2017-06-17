@@ -38,22 +38,24 @@ public class ClientApp {
 
     public static void main(String[] args) throws IOException {
 
-        clientApp.askHowManyOptions();
-        clientApp.askWhichVariantsToFill();
+        clientApp.askHowManyOptions(); //2 - userInputOptions
+        clientApp.askWhichVariantsToFill(); //2 - userInputOptionsVariants
+        clientApp.userEmailFill(); //fasf
 
-        //for(int i = 1; i <= userInputOptions; i++){
+//        for(int i = 1; i <= userInputOptionsVariants; i++){
         clientApp.userFillVariant(arrayOfVariationNumbers);
-        clientApp.randomFillVariant(arrayRandom);
-        clientApp.userEmailFill();
-        //}
 
         System.out.println("Your entered List of Integers - " + arrayOfVariationNumbers);
-        System.out.println("Array of random integers - " + arrayRandom);
 
-        Variation variation = new Variation(1, arrayOfVariationNumbers, userEmail);
+        Variation variation = new Variation(userInputOptions, arrayOfVariationNumbers, userEmail);
         Packet02Variation packet02Variation = new Packet02Variation();
         packet02Variation.variation = variation;
         KryoClient kryoClient = new KryoClient(packet02Variation);
+
+//        }
+        clientApp.randomFillVariant(arrayRandom);
+
+        System.out.println("Array of random integers - " + arrayRandom);
 
     }
 
@@ -173,13 +175,13 @@ public class ClientApp {
         }
         return list;
     }
-    
+
     /**
      * Function for user email entering
      */
-    public void userEmailFill(){
-        userEmail = JOptionPane.showInputDialog(null,"Enter Email!",
-                        "Enter email...");
+    public void userEmailFill() {
+        userEmail = JOptionPane.showInputDialog(null, "Enter Email!",
+                "Enter email...");
     }
 
     /**

@@ -6,9 +6,12 @@
 package kryonet;
 
 import com.esotericsoftware.kryonet.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import kryonet.Packet.Packet01Message;
 import kryonet.Packet.Packet02Variation;
 
@@ -21,6 +24,7 @@ public class KryoServerListener extends Listener {
     Server server;
     ClientApp clientapp;
     private ArrayList<Integer> winningNumbers;
+    private ActionWithDB database = new ActionWithDB();
     private int randomNumb;
     //private Variation var = new Variation();
     //private Packet02Variation pack = new Packet02Variation();
@@ -73,13 +77,18 @@ public class KryoServerListener extends Listener {
         }
 
         if (obj instanceof Packet02Variation) {
-            System.out.println("Packet02Variation received");
-            System.out.println(((Packet02Variation) obj).variation.toString());
-            //check both arrays for matching elements
-            checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
-            ((Packet02Variation) obj).variation.setCorrectNumbers(same);
-            con.sendTCP(obj);
-            same = 0;
+            try {
+                System.out.println("Packet02Variation received");
+                System.out.println(((Packet02Variation) obj).variation.toString());
+                //check both arrays for matching elements
+                checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
+                ((Packet02Variation) obj).variation.setCorrectNumbers(same);
+                database.insertIntoClientTable(((Packet02Variation) obj).variation);
+                con.sendTCP(obj);
+                same = 0;
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
