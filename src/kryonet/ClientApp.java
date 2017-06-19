@@ -18,6 +18,7 @@ import kryonet.Packet.Packet02Variation;
 public class ClientApp {
 
     private static ClientApp clientApp = new ClientApp();
+    
     //private static Variation variation = new Variation(0, 0, selectedNumbers, clientEmail, date);
     private static int userInputOptions;
     private static int userInputOptionsVariants;
@@ -42,9 +43,10 @@ public class ClientApp {
         clientApp.askWhichVariantsToFill(); //2 - userInputOptionsVariants
         clientApp.userEmailFill(); //fasf
 
+        
 //        for(int i = 1; i <= userInputOptionsVariants; i++){
         clientApp.userFillVariant(arrayOfVariationNumbers);
-
+        
         System.out.println("Your entered List of Integers - " + arrayOfVariationNumbers);
 
         Variation variation = new Variation(userInputOptions, arrayOfVariationNumbers, userEmail);

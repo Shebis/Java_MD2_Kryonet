@@ -19,14 +19,18 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendEmail {
     public static void main(String [] args){
+        SendEmail se = new SendEmail();
+        se.sendEmail("s4_staske_r@venta.lv", "SAgdgadgsdgsd");
+    }
+    public void sendEmail(String emailTo, String subjectF){
         try{
             String host = "smtp.gmail.com";
             String user = "bingo.server.client@gmail.com";
             String pass = "Bingo123!";
-            String to = "s4_staske_r@venta.lv";
+            String to = emailTo;
             String from = "bingo.server.client@gmail.com";
-            String subject = "Some Email Data...";
-            String messageText = "If you receive this, it is cool!";
+            String subject = "Bingo Server Result in This Hour!";
+            String messageText = subjectF;
             boolean sessionDebug = false;
             Properties props = System.getProperties();
             props.put("mail.smtp.starttls.enable", "true");
@@ -49,7 +53,7 @@ public class SendEmail {
            transport.connect(host, user, pass);
            transport.sendMessage(msg, msg.getAllRecipients());
            transport.close();
-           System.out.println("message send successfully");
+           System.out.println("Email message send successfully");
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             

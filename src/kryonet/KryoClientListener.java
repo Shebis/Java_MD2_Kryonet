@@ -6,7 +6,6 @@
 package kryonet;
 
 import com.esotericsoftware.kryonet.*;
-import kryonet.Packet.Packet01Message;
 import kryonet.Packet.Packet02Variation;
 
 /**

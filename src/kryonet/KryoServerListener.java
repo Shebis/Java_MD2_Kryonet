@@ -25,6 +25,7 @@ public class KryoServerListener extends Listener {
     ClientApp clientapp;
     private ArrayList<Integer> winningNumbers;
     private ActionWithDB database = new ActionWithDB();
+    private SendEmail sendEmail = new SendEmail();
     private int randomNumb;
     //private Variation var = new Variation();
     //private Packet02Variation pack = new Packet02Variation();
@@ -84,6 +85,7 @@ public class KryoServerListener extends Listener {
                 checkArrayElements(winningNumbers, ((Packet02Variation) obj).variation.getList());
                 ((Packet02Variation) obj).variation.setCorrectNumbers(same);
                 database.insertIntoClientTable(((Packet02Variation) obj).variation);
+                sendEmail.sendEmail(((Packet02Variation) obj).variation.getClientEmail(), ((Packet02Variation) obj).variation.toString());
                 con.sendTCP(obj);
                 same = 0;
             } catch (SQLException ex) {
